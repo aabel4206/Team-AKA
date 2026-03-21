@@ -1,7 +1,10 @@
 package chess;
 
+import chess.game.Game;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Chess Phase 1 project setup complete.");
+        Game game = new Game();
+        game.start();
     }
 }
