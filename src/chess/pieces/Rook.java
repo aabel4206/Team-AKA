@@ -1,7 +1,31 @@
 package chess.pieces;
 
-/**
- * Represents a rook.
- */
+import chess.board.Board;
+import chess.board.Position;
+
 public class Rook extends Piece {
+    public Rook(String color, Position position) {
+        super(color, position);
+    }
+
+    @Override
+    public boolean isValidMove(Board board, Position destination) {
+        if (!isWithinBounds(destination) || isSamePosition(destination) || isOwnPiece(board, destination)) {
+            return false;
+        }
+
+        int currentRow = getPosition().getRow();
+        int currentCol = getPosition().getCol();
+        int destRow = destination.getRow();
+        int destCol = destination.getCol();
+
+        boolean straightMove = currentRow == destRow || currentCol == destCol;
+
+        return straightMove && isPathClear(board, destination);
+    }
+
+    @Override
+    public String getSymbol() {
+        return getColor().equals("White") ? "wR" : "bR";
+    }
 }
