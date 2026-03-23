@@ -14,7 +14,7 @@ The current implementation starts a game loop, reads moves in chess notation suc
 ## Folder Structure
 - `src/chess` - application entry point
 - `src/chess/board` - board and position classes
-- `src/chess/pieces` - base piece type and chess piece subclasses
+- `src/chess/pieces` - abstract Piece class and all chess piece subclasses (Pawn, Rook, Knight, Bishop, Queen, King) with movement validation logic
 - `src/chess/game` - game loop and player classes
 - `src/chess/utils` - input parsing utilities
 - `docs` - project documentation
