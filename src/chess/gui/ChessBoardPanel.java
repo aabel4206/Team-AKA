@@ -1,6 +1,7 @@
 package chess.gui;
 
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import java.awt.GridLayout;
 import java.awt.Color;
 import javax.swing.BorderFactory;
@@ -12,6 +13,7 @@ public class ChessBoardPanel extends JPanel {
     private Color darkSquareColor = new Color(181, 136, 99);
     private int boardPixelSize = 600;
     private int pieceFontSize = 18;
+    private ChessSquareButton selectedSquare = null;
 
     public ChessBoardPanel() {
         squares = new ChessSquareButton[8][8];
@@ -28,6 +30,7 @@ public class ChessBoardPanel extends JPanel {
                 square.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 square.setPieceFontSize(pieceFontSize);
                 squares[row][col] = square;
+                square.addActionListener(e -> handleSquareClick(square));
                 add(square);
             }
         }
@@ -35,7 +38,32 @@ public class ChessBoardPanel extends JPanel {
         resetBoard();
     }
 
+    private void handleSquareClick(ChessSquareButton clicked) {
+        if (selectedSquare == null) {
+            if (!clicked.getText().isEmpty()) {
+                selectedSquare = clicked;
+                clicked.setBorder(BorderFactory.createLineBorder(Color.CYAN, 3));
+            }
+        } else if (clicked == selectedSquare) {
+            selectedSquare.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            selectedSquare = null;
+        } else {
+            String destination = clicked.getText();
+            String moving = selectedSquare.getText();
+            clicked.setText(moving);
+            selectedSquare.setText("");
+            selectedSquare.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            selectedSquare = null;
+            if (destination.equals("wK") || destination.equals("bK")) {
+                String winner = destination.equals("wK") ? "Black" : "White";
+                JOptionPane.showMessageDialog(this, winner + " wins! The game is over.");
+                System.exit(0);
+            }
+        }
+    }
+
     public void resetBoard() {
+        selectedSquare = null;
         clearBoard();
 
         for (int col = 0; col < 8; col++) {
@@ -77,6 +105,7 @@ public class ChessBoardPanel extends JPanel {
     }
 
     public void setBoardState(String[][] state) {
+        selectedSquare = null;
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 squares[row][col].setText(state[row][col] == null ? "" : state[row][col]);
