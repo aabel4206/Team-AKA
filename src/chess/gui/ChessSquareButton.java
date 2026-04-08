@@ -11,7 +11,7 @@ public class ChessSquareButton extends JButton {
     public ChessSquareButton(int row, int col) {
         this.row = row;
         this.col = col;
-        setFont(new Font("Arial", Font.BOLD, 18));
+        setPieceFontSize(18);
         setFocusPainted(false);
     }
 
@@ -21,5 +21,9 @@ public class ChessSquareButton extends JButton {
 
     public int getCol() {
         return col;
+    }
+
+    public void setPieceFontSize(int size) {
+        setFont(new Font("Arial", Font.BOLD, size));
     }
 }
