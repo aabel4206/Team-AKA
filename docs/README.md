@@ -1,4 +1,7 @@
+
+Class: OOP, CS.3354.255
 Class: OOP, CS 3354.255
+
 
 # Team-AKA Chess Project Phase 1
 
@@ -19,6 +22,25 @@ The current implementation starts a game loop, reads moves in chess notation suc
 - `src/chess/utils` - input parsing utilities
 - `docs` - project documentation
 
+
+## Current Status
+The project structure has been created and the initial console interface has been implemented.
+
+Completed:
+- Project package structure
+- Main entry point (`Main.java`)
+- Game loop (`Game.java`)
+- User input handling and validation (`InputParser.java`)
+- Turn switching between players
+- Move parsing for inputs like `E2 E4`
+
+## How to Run
+Open the project folder and run:
+
+```bash
+javac -d out src/chess/Main.java src/chess/game/Game.java src/chess/utils/InputParser.java
+java -cp out chess.Main
+=======
 ## Current Phase 1 Status
 - `Main` starts the program by creating a `Game`
 - `Game` handles the console loop and turn switching
@@ -45,3 +67,4 @@ java -cp src chess.Main
 - Basic board setup and console interaction only
 - No advanced chess rules yet
 - Castling, check, checkmate, en passant, and promotion are not implemented in this phase
+
