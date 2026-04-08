@@ -1,4 +1,5 @@
 Class: OOP, CS.3354.255
+
 # Team-AKA Chess Project Phase 1
 
 ## Team Members
@@ -19,10 +20,19 @@ The program will display a chessboard, accept user moves in standard chess notat
 - `docs` - generated Javadoc files
 
 ## Current Status
-Initial project structure and starter files created.
+The project structure has been created and the initial console interface has been implemented.
+
+Completed:
+- Project package structure
+- Main entry point (`Main.java`)
+- Game loop (`Game.java`)
+- User input handling and validation (`InputParser.java`)
+- Turn switching between players
+- Move parsing for inputs like `E2 E4`
 
 ## How to Run
-Compilation and run instructions will be added after implementation begins.
+Open the project folder and run:
 
-## Notes
-Advanced features such as castling, promotion, and check/checkmate are not part of the initial setup.
+```bash
+javac -d out src/chess/Main.java src/chess/game/Game.java src/chess/utils/InputParser.java
+java -cp out chess.Main
