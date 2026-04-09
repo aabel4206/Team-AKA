@@ -20,6 +20,10 @@ public class Position {
         return column;
     }
 
+    public int getCol() {
+        return column;
+    }
+
     public static Position fromNotation(String notation) {
         if (notation == null) {
             throw new IllegalArgumentException("Position cannot be null");

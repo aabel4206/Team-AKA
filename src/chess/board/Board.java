@@ -23,27 +23,27 @@ public class Board {
         grid = new Piece[8][8];
 
         for (int column = 0; column < 8; column++) {
-            grid[1][column] = new Pawn();
-            grid[6][column] = new Pawn();
+            grid[1][column] = new Pawn("Black", new Position(1, column));
+            grid[6][column] = new Pawn("White", new Position(6, column));
         }
 
-        grid[0][0] = new Rook();
-        grid[0][1] = new Knight();
-        grid[0][2] = new Bishop();
-        grid[0][3] = new Queen();
-        grid[0][4] = new King();
-        grid[0][5] = new Bishop();
-        grid[0][6] = new Knight();
-        grid[0][7] = new Rook();
+        grid[0][0] = new Rook("Black", new Position(0, 0));
+        grid[0][1] = new Knight("Black", new Position(0, 1));
+        grid[0][2] = new Bishop("Black", new Position(0, 2));
+        grid[0][3] = new Queen("Black", new Position(0, 3));
+        grid[0][4] = new King("Black", new Position(0, 4));
+        grid[0][5] = new Bishop("Black", new Position(0, 5));
+        grid[0][6] = new Knight("Black", new Position(0, 6));
+        grid[0][7] = new Rook("Black", new Position(0, 7));
 
-        grid[7][0] = new Rook();
-        grid[7][1] = new Knight();
-        grid[7][2] = new Bishop();
-        grid[7][3] = new Queen();
-        grid[7][4] = new King();
-        grid[7][5] = new Bishop();
-        grid[7][6] = new Knight();
-        grid[7][7] = new Rook();
+        grid[7][0] = new Rook("White", new Position(7, 0));
+        grid[7][1] = new Knight("White", new Position(7, 1));
+        grid[7][2] = new Bishop("White", new Position(7, 2));
+        grid[7][3] = new Queen("White", new Position(7, 3));
+        grid[7][4] = new King("White", new Position(7, 4));
+        grid[7][5] = new Bishop("White", new Position(7, 5));
+        grid[7][6] = new Knight("White", new Position(7, 6));
+        grid[7][7] = new Rook("White", new Position(7, 7));
     }
 
     public void displayBoard() {
@@ -69,6 +69,9 @@ public class Board {
     public void setPiece(Position position, Piece piece) {
         if (!isWithinBounds(position)) {
             return;
+        }
+        if (piece != null) {
+            piece.setPosition(position);
         }
         grid[position.getRow()][position.getColumn()] = piece;
     }
