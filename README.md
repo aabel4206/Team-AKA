@@ -69,7 +69,5 @@ A UML class diagram is included in the Phase 3 PDF submission. It illustrates th
 ## Screenshots
 Screenshots of the running GUI, legal moves, captures, and checkmate states are included in the Phase 3 PDF submission.
 
-- All standard piece movement rules are enforced, including path blocking for sliding pieces and restrictions on illegal moves.
-
 ## Final Note
 This project demonstrates a fully integrated object-oriented design combining backend game logic with a responsive GUI interface.
