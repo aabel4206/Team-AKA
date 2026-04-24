@@ -3,6 +3,9 @@ package chess.pieces;
 import chess.board.Board;
 import chess.board.Position;
 
+/**
+ * Chess rook piece. Moves horizontally or vertically when its path is clear.
+ */
 public class Rook extends Piece {
     public Rook(String color, Position position) {
         super(color, position);

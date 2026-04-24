@@ -3,6 +3,9 @@ package chess.pieces;
 import chess.board.Board;
 import chess.board.Position;
 
+/**
+ * Chess knight piece. Moves in an L shape and may jump over pieces.
+ */
 public class Knight extends Piece {
     public Knight(String color, Position position) {
         super(color, position);

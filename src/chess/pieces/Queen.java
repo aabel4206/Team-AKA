@@ -3,6 +3,9 @@ package chess.pieces;
 import chess.board.Board;
 import chess.board.Position;
 
+/**
+ * Chess queen piece. Combines rook and bishop movement.
+ */
 public class Queen extends Piece {
     public Queen(String color, Position position) {
         super(color, position);

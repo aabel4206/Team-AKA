@@ -3,6 +3,9 @@ package chess.pieces;
 import chess.board.Board;
 import chess.board.Position;
 
+/**
+ * Chess king piece. Moves one square in any direction.
+ */
 public class King extends Piece {
     public King(String color, Position position) {
         super(color, position);

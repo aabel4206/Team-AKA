@@ -3,6 +3,9 @@ package chess.pieces;
 import chess.board.Board;
 import chess.board.Position;
 
+/**
+ * Chess bishop piece. Moves diagonally when its path is clear.
+ */
 public class Bishop extends Piece {
     public Bishop(String color, Position position) {
         super(color, position);

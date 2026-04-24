@@ -1,70 +1,46 @@
+# Team-AKA Chess Project - Phase 3
 
-Class: OOP, CS.3354.255
 Class: OOP, CS 3354.255
 
+## Phase 3 Summary
+The project is now a Java Swing chess game with backend move validation integrated into the GUI. User clicks are sent to `GameController`, legal moves are validated by `Board` and the piece classes, and the GUI refreshes from the backend state after each successful move.
 
-# Team-AKA Chess Project Phase 1
+## Implemented Features
+- Standard 8x8 chess board and starting position
+- White/Black turn tracking
+- Legal moves for pawns, rooks, knights, bishops, queens, and kings
+- Illegal move rejection
+- Opponent captures
+- Own-piece capture prevention
+- Sliding-piece path blocking
+- Prevention of moves that leave the moving side in check
+- Check detection
+- Checkmate detection and winner declaration
+- New Game, Settings, Save Game, and Load Game menu support
+- Save/load of backend board state, current turn, and board appearance settings
 
-## Team Members
-- Abel Tadele
-- Kidus Beshah
-- Abigiya Adamu Bodja
-
-## Project Overview
-This project is a console-based Java chess program for Phase 1 of the group assignment.
-The current implementation starts a game loop, reads moves in chess notation such as `E2 E4`, validates the input format, initializes a standard 8x8 board, and can display the board state in the console.
-
-## Folder Structure
-- `src/chess` - application entry point
-- `src/chess/board` - board and position classes
-- `src/chess/pieces` - abstract Piece class and all chess piece subclasses (Pawn, Rook, Knight, Bishop, Queen, King) with movement validation logic
-- `src/chess/game` - game loop and player classes
-- `src/chess/utils` - input parsing utilities
-- `docs` - project documentation
-
-
-## Current Status
-The project structure has been created and the initial console interface has been implemented.
-
-Completed:
-- Project package structure
-- Main entry point (`Main.java`)
-- Game loop (`Game.java`)
-- User input handling and validation (`InputParser.java`)
-- Turn switching between players
-- Move parsing for inputs like `E2 E4`
-
-## How to Run
-Open the project folder and run:
+## Compile
+From the repository root:
 
 ```bash
-javac -d out src/chess/Main.java src/chess/game/Game.java src/chess/utils/InputParser.java
+javac -d out src/chess/Main.java src/chess/gui/*.java src/chess/game/*.java src/chess/board/*.java src/chess/pieces/*.java src/chess/utils/*.java
+```
+
+## Run
+From the repository root:
+
+```bash
 java -cp out chess.Main
-=======
-## Current Phase 1 Status
-- `Main` starts the program by creating a `Game`
-- `Game` handles the console loop and turn switching
-- `InputParser` validates and parses moves in `E2 E4` format
-- `Board` maintains an 8x8 `Piece[][]`, initializes starting positions, and displays the board
-- `Position` converts chess notation such as `E2` into board coordinates
-- `Player` stores simple player identity data
-
-## How to Compile
-From the project root:
-
-```bash
-javac $(find src -name '*.java')
 ```
 
-## How to Run
-From the project root:
+## Basic Controls
+- Click a piece belonging to the current player.
+- Click the destination square to attempt the move.
+- If the move is legal, the backend board updates and the GUI refreshes.
+- If the move is illegal, a message appears and the board stays unchanged.
+- Check and checkmate are reported with popups.
 
-```bash
-java -cp src chess.Main
-```
-
-## Phase 1 Scope
-- Basic board setup and console interaction only
-- No advanced chess rules yet
-- Castling, check, checkmate, en passant, and promotion are not implemented in this phase
-
+## Notes
+- Castling, en passant, and pawn promotion are outside this implementation.
+- Kings are never captured; checkmate ends the game and declares the winner.
+- Older Phase 2 save files can load, defaulting to White to move when no turn is saved.

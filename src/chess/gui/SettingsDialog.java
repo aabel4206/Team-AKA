@@ -1,15 +1,29 @@
 package chess.gui;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
+/**
+ * Modal dialog for changing board colors, board size, and piece text size.
+ */
 public class SettingsDialog extends JDialog {
+
+    private static final Color DIALOG_BACKGROUND = new Color(245, 242, 235);
+    private static final Color PANEL_BACKGROUND = new Color(252, 248, 239);
+    private static final Font LABEL_FONT = new Font("SansSerif", Font.BOLD, 13);
+    private static final Font CONTROL_FONT = new Font("SansSerif", Font.PLAIN, 13);
+    private static final Font BUTTON_FONT = new Font("SansSerif", Font.BOLD, 13);
 
     private ChessGUI parentFrame;
     private ChessBoardPanel boardPanel;
@@ -19,39 +33,100 @@ public class SettingsDialog extends JDialog {
     private JComboBox<String> boardSizeBox;
     private JComboBox<String> pieceStyleBox;
 
+    /**
+     * Creates the settings dialog for the current GUI.
+     *
+     * @param parentFrame owning chess window
+     * @param boardPanel board panel to configure
+     */
     public SettingsDialog(ChessGUI parentFrame, ChessBoardPanel boardPanel) {
-        super(parentFrame, "Settings", true);
+        super(parentFrame, "Board Settings", true);
         this.parentFrame = parentFrame;
         this.boardPanel = boardPanel;
 
         setLayout(new BorderLayout());
+        getContentPane().setBackground(DIALOG_BACKGROUND);
 
-        JPanel formPanel = new JPanel(new GridLayout(4, 2, 10, 10));
+        JLabel titleLabel = new JLabel("Board Settings");
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
+        titleLabel.setForeground(new Color(45, 35, 25));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(14, 16, 8, 16));
 
-        lightColorBox = new JComboBox<>(new String[]{"Classic Light", "White", "Light Gray", "Beige", "Blue"});
-        darkColorBox = new JComboBox<>(new String[]{"Classic Dark", "Black", "Dark Gray", "Brown", "Green"});
-        boardSizeBox = new JComboBox<>(new String[]{"Small", "Medium", "Large"});
-        pieceStyleBox = new JComboBox<>(new String[]{"Normal", "Large"});
+        JPanel formPanel = new JPanel(new GridBagLayout());
+        formPanel.setBackground(PANEL_BACKGROUND);
+        formPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(210, 198, 180)),
+                BorderFactory.createEmptyBorder(14, 16, 14, 16)));
+
+        lightColorBox = createComboBox(new String[]{"Classic Light", "White", "Light Gray", "Beige", "Blue"});
+        darkColorBox = createComboBox(new String[]{"Classic Dark", "Black", "Dark Gray", "Brown", "Green"});
+        boardSizeBox = createComboBox(new String[]{"Small", "Medium", "Large"});
+        pieceStyleBox = createComboBox(new String[]{"Normal", "Large"});
 
         setSelectionsFromCurrentSettings();
 
-        formPanel.add(new JLabel("Light Square Color:"));
-        formPanel.add(lightColorBox);
-        formPanel.add(new JLabel("Dark Square Color:"));
-        formPanel.add(darkColorBox);
-        formPanel.add(new JLabel("Board Size:"));
-        formPanel.add(boardSizeBox);
-        formPanel.add(new JLabel("Piece Text Style:"));
-        formPanel.add(pieceStyleBox);
+        addSettingRow(formPanel, 0, "Light Square Color", lightColorBox);
+        addSettingRow(formPanel, 1, "Dark Square Color", darkColorBox);
+        addSettingRow(formPanel, 2, "Board Size", boardSizeBox);
+        addSettingRow(formPanel, 3, "Piece Text Style", pieceStyleBox);
 
-        JButton applyButton = new JButton("Apply");
+        JPanel contentPanel = new JPanel(new BorderLayout());
+        contentPanel.setBackground(DIALOG_BACKGROUND);
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(0, 16, 0, 16));
+        contentPanel.add(formPanel, BorderLayout.CENTER);
+
+        JButton applyButton = createButton("Apply");
         applyButton.addActionListener(e -> applySettings());
 
-        add(formPanel, BorderLayout.CENTER);
-        add(applyButton, BorderLayout.SOUTH);
+        JButton cancelButton = createButton("Cancel");
+        cancelButton.addActionListener(e -> dispose());
 
-        setSize(350, 220);
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
+        buttonPanel.setBackground(DIALOG_BACKGROUND);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(12, 16, 14, 16));
+        buttonPanel.add(cancelButton);
+        buttonPanel.add(applyButton);
+
+        add(titleLabel, BorderLayout.NORTH);
+        add(contentPanel, BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        setSize(390, 290);
         setLocationRelativeTo(parentFrame);
+    }
+
+    private JComboBox<String> createComboBox(String[] values) {
+        JComboBox<String> comboBox = new JComboBox<>(values);
+        comboBox.setFont(CONTROL_FONT);
+        return comboBox;
+    }
+
+    private JButton createButton(String text) {
+        JButton button = new JButton(text);
+        button.setFont(BUTTON_FONT);
+        button.setFocusPainted(false);
+        return button;
+    }
+
+    private void addSettingRow(JPanel panel, int row, String labelText, JComboBox<String> comboBox) {
+        GridBagConstraints labelConstraints = new GridBagConstraints();
+        labelConstraints.gridx = 0;
+        labelConstraints.gridy = row;
+        labelConstraints.anchor = GridBagConstraints.WEST;
+        labelConstraints.insets = new Insets(8, 0, 8, 18);
+
+        JLabel label = new JLabel(labelText);
+        label.setFont(LABEL_FONT);
+        label.setForeground(new Color(45, 35, 25));
+        panel.add(label, labelConstraints);
+
+        GridBagConstraints inputConstraints = new GridBagConstraints();
+        inputConstraints.gridx = 1;
+        inputConstraints.gridy = row;
+        inputConstraints.weightx = 1.0;
+        inputConstraints.fill = GridBagConstraints.HORIZONTAL;
+        inputConstraints.insets = new Insets(8, 0, 8, 0);
+        panel.add(comboBox, inputConstraints);
     }
 
     private void setSelectionsFromCurrentSettings() {
@@ -92,7 +167,7 @@ public class SettingsDialog extends JDialog {
         }
 
         int fontSize = boardPanel.getPieceFontSize();
-        if (fontSize <= 18) {
+        if (fontSize <= 40) {
             pieceStyleBox.setSelectedItem("Normal");
         } else {
             pieceStyleBox.setSelectedItem("Large");
@@ -152,8 +227,8 @@ public class SettingsDialog extends JDialog {
 
     private int getPieceFontSize(String selection) {
         if (selection.equals("Large")) {
-            return 24;
+            return 46;
         }
-        return 18;
+        return 40;
     }
 }
